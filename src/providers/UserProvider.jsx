@@ -1,5 +1,7 @@
 import React, { Component, createContext } from 'react'
-import { auth } from '../firebase'
+// import { auth } from '../firebase'
+
+import { auth, generateUserDocument } from '../firebase'
 
 export const UserContext = createContext({ user: null })
 class UserProvider extends Component {
@@ -13,7 +15,11 @@ class UserProvider extends Component {
     })
   }
   render() {
-    return <UserContext.Provider value={this.state.user}>{this.props.children}</UserContext.Provider>
+    const { user } = this.state
+
+    return (
+      <UserContext.Provider value={this.state.user}>{this.props.children}</UserContext.Provider>
+    )
   }
 }
 export default UserProvider
