@@ -1,8 +1,8 @@
 // import React from 'react'
 import React, { useContext } from 'react'
 
-// import { Router } from 'react-router-dom'
-import { BrowserRouter as Router } from 'react-router-dom'
+import { Router } from '@reach/router'
+
 import SignIn from './SignIn'
 import SignUp from './SignUp'
 import ProfilePage from './ProfilePage'
