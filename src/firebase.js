@@ -2,11 +2,16 @@ import firebase from 'firebase/app'
 import 'firebase/auth'
 import 'firebase/firestore'
 
+// React Firebase Image Upload tutorial:
+// https://dev.to/itnext/how-to-do-image-upload-with-firebase-in-react-cpj
+import 'firebase/storage'
+
 import { firebaseConfig } from './firebase-config'
 
 firebase.initializeApp(firebaseConfig)
 export const auth = firebase.auth()
 export const firestore = firebase.firestore()
+export const storage = firebase.storage()
 
 const provider = new firebase.auth.GoogleAuthProvider()
 
@@ -49,3 +54,5 @@ const getUserDocument = async uid => {
     console.error('Error fetching user', error)
   }
 }
+
+export { firebase as default }
