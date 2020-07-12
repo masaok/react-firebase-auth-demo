@@ -1,3 +1,9 @@
+## Quickstart
+
+1. Copy `firebase-config-sample.js` to `firebase-config.js`
+
+## Boilerplate
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
