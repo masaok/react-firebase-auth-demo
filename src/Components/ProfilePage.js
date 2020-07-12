@@ -2,6 +2,9 @@ import React, { useContext } from 'react'
 import { UserContext } from '../providers/UserProvider'
 
 import { auth } from '../firebase'
+
+import FileUpload from '../file-upload/FileUpload'
+
 const ProfilePage = () => {
   const user = useContext(UserContext)
   const { photoURL, displayName, email } = user
@@ -25,6 +28,7 @@ const ProfilePage = () => {
           <h3 className="italic">{email}</h3>
         </div>
       </div>
+      <FileUpload />
       <button
         className="w-full py-3 bg-red-600 mt-4 text-white"
         onClick={() => {

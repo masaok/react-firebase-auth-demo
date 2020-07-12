@@ -14,8 +14,13 @@ function Application() {
   // const user = null
   const user = useContext(UserContext)
 
+  console.log('APPLICATION > user:')
+  console.log(user)
+
   return user ? (
-    <ProfilePage />
+    <>
+      <ProfilePage />
+    </>
   ) : (
     <Router>
       <SignUp path="signUp" />

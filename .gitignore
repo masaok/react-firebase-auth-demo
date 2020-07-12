@@ -3,6 +3,8 @@
 .firebase
 firebase-config.js
 
+private
+
 # dependencies
 /node_modules
 /.pnp
