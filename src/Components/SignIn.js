@@ -2,6 +2,12 @@ import React, { useState } from 'react'
 import { Link } from '@reach/router'
 import { signInWithGoogle, auth } from '../firebase'
 
+import { Helmet } from 'react-helmet'
+
+import GoogleLogin from 'react-google-login'
+
+const googleClientId = '546798372784-gtv788jk9bbeq1v9khrn87mau3p1rgth.apps.googleusercontent.com'
+
 const SignIn = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -25,64 +31,111 @@ const SignIn = () => {
     }
   }
 
+  const responseGoogle = response => {
+    console.log(response)
+  }
+
   return (
-    <div className="mt-8">
-      <h1 className="text-3xl mb-2 text-center font-bold">Sign In</h1>
-      <div className="border border-blue-400 mx-auto w-11/12 md:w-2/4 rounded py-8 px-4 md:px-8">
-        {error !== null && (
-          <div className="py-4 bg-red-600 w-full text-white text-center mb-3">{error}</div>
-        )}
-        <form className="">
-          <label htmlFor="userEmail" className="block">
-            Email:
-          </label>
-          <input
-            type="email"
-            className="my-1 p-1 w-full"
-            name="userEmail"
-            value={email}
-            id="userEmail"
-            onChange={event => onChangeHandler(event)}
-          />
-          <label htmlFor="userPassword" className="block">
-            Password:
-          </label>
-          <input
-            type="password"
-            className="mt-1 mb-3 p-1 w-full"
-            name="userPassword"
-            value={password}
-            id="userPassword"
-            onChange={event => onChangeHandler(event)}
-          />
+    <>
+      <Helmet>
+        <script
+          src="https://apis.google.com/js/platform.js?onload=renderButton"
+          async
+          defer
+        ></script>
+      </Helmet>
+      <div className="mt-8">
+        <h1 className="text-3xl mb-2 text-center font-bold">Sign In</h1>
+        <div className="border border-blue-400 mx-auto w-11/12 md:w-2/4 rounded py-8 px-4 md:px-8">
+          {error !== null && (
+            <div className="py-4 bg-red-600 w-full text-white text-center mb-3">{error}</div>
+          )}
+          <form className="">
+            <label htmlFor="userEmail" className="block">
+              Email:
+            </label>
+            <input
+              type="email"
+              className="my-1 p-1 w-full"
+              name="userEmail"
+              value={email}
+              id="userEmail"
+              onChange={event => onChangeHandler(event)}
+            />
+            <label htmlFor="userPassword" className="block">
+              Password:
+            </label>
+            <input
+              type="password"
+              className="mt-1 mb-3 p-1 w-full"
+              name="userPassword"
+              value={password}
+              id="userPassword"
+              onChange={event => onChangeHandler(event)}
+            />
+            <button
+              className="bg-green-400 hover:bg-green-500 w-full py-2 text-white"
+              onClick={event => {
+                signInWithEmailAndPasswordHandler(event, email, password)
+              }}
+            >
+              Sign in
+            </button>
+          </form>
+          <p className="text-center my-3">or</p>
           <button
-            className="bg-green-400 hover:bg-green-500 w-full py-2 text-white"
-            onClick={event => {
-              signInWithEmailAndPasswordHandler(event, email, password)
+            className="bg-red-500 hover:bg-red-600 w-full py-2 text-white"
+            onClick={signInWithGoogle}
+          >
+            Sign in with Google
+          </button>
+          <div
+            style={{
+              display: 'flex',
+              flex: 1,
+              justifyContent: 'center'
             }}
           >
-            Sign in
-          </button>
-        </form>
-        <p className="text-center my-3">or</p>
-        <button
-          className="bg-red-500 hover:bg-red-600 w-full py-2 text-white"
-          onClick={signInWithGoogle}
-        >
-          Sign in with Google
-        </button>
-        <p className="text-center my-3">
-          Don't have an account?{' '}
-          <Link to="signUp" className="text-blue-500 hover:text-blue-600">
-            Sign up here
-          </Link>{' '}
-          <br />{' '}
-          <Link to="passwordReset" className="text-blue-500 hover:text-blue-600">
-            Forgot Password?
-          </Link>
-        </p>
+            <button onClick={signInWithGoogle}>
+              <img src="/images/btn_google_signin_dark_normal_web.png" alt="google sign in" />
+            </button>
+          </div>
+          <div
+            style={{
+              display: 'flex',
+              flex: 1,
+              justifyContent: 'center'
+            }}
+          >
+            <img
+              src="/images/btn_google_signin_dark_normal_web.png"
+              alt="google sign in"
+              onClick={signInWithGoogle}
+              style={{ marginTop: '8px', cursor: 'pointer' }}
+            />
+          </div>
+          <p className="text-center my-3">
+            Don't have an account?{' '}
+            <Link to="signUp" className="text-blue-500 hover:text-blue-600">
+              Sign up here
+            </Link>{' '}
+            <br />{' '}
+            <Link to="passwordReset" className="text-blue-500 hover:text-blue-600">
+              Forgot Password?
+            </Link>
+          </p>
+        </div>
+        <div className={{}}>
+          <GoogleLogin
+            clientId={googleClientId}
+            buttonText="Login"
+            onSuccess={responseGoogle}
+            onFailure={responseGoogle}
+            cookiePolicy={'single_host_origin'}
+          />
+        </div>
       </div>
-    </div>
+    </>
   )
 }
 export default SignIn
